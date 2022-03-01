@@ -6,12 +6,14 @@ from ticktick.managers.settings import SettingsManager
 from ticktick.managers.tags import TagsManager
 from ticktick.managers.tasks import TaskManager
 from ticktick.oauth2 import OAuth2
+import re
+import requests
 
 
 class TickTickClient:
-    BASE_URL = 'https://api.ticktick.com/api/v2/'
+    BASE_URL = 'https://api.dida365.com/api/v2/'
 
-    OPEN_API_BASE_URL = 'https://api.ticktick.com'
+    OPEN_API_BASE_URL = 'https://api.dida365.com'
 
     INITIAL_BATCH_URL = BASE_URL + 'batch/check/0'
 
@@ -19,7 +21,9 @@ class TickTickClient:
 
     HEADERS = {'User-Agent': USER_AGENT}
 
-    def __init__(self, username: str, password: str, oauth: OAuth2) -> None:
+    PHONE_RE = re.compile(r'^1[3-9]\d{9}$')
+
+    def __init__(self, username: str, password: str, oauth: OAuth2 = None) -> None:
         """
         Initializes a client session. In order to interact with the API
         a successful login must occur.
@@ -42,7 +46,9 @@ class TickTickClient:
         self.state = {}
         self.reset_local_state()
         self.oauth_manager = oauth
-        self._session = self.oauth_manager.session
+        # self._session = self.oauth_manager.session
+        self._session = requests.Session()
+        self._session.headers.update(self.HEADERS)
 
         self._prepare_session(username, password)
 
@@ -87,8 +93,9 @@ class TickTickClient:
 
         """
         url = self.BASE_URL + 'user/signin'
+        user_param = "phone" if self.PHONE_RE.match(username) else "username"
         user_info = {
-            'username': username,
+            user_param: username,
             'password': password
         }
         parameters = {
@@ -97,7 +104,6 @@ class TickTickClient:
         }
 
         response = self.http_post(url, json=user_info, params=parameters, headers=self.HEADERS)
-
         self.access_token = response['token']
         self.cookies['t'] = self.access_token
 

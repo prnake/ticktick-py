@@ -8,5 +8,5 @@ class PomoManager:
         pass
 
     def statistics(self):
-        # https://api.ticktick.com/api/v2/statistics/general
+        # https://api.dida365.com/api/v2/statistics/general
         pass

@@ -5,9 +5,9 @@ class SettingsManager:
         self.access_token = ''
 
     def get_templates(self):
-        # https://api.ticktick.com/api/v2/templates
+        # https://api.dida365.com/api/v2/templates
         pass
 
     def get_user_settings(self):
-        # https://api.ticktick.com/api/v2/user/preferences/settings?includeWeb=true
+        # https://api.dida365.com/api/v2/user/preferences/settings?includeWeb=true
         pass

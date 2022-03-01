@@ -1,7 +1,12 @@
-![unit-tests](https://github.com/lazeroffmichael/ticktick-py/workflows/unit-tests/badge.svg)
-[![documentation](https://img.shields.io/badge/docs-mkdocs%20material-blue.svg?style=flat)](https://lazeroffmichael.github.io/ticktick-py/)
+# 滴答清单 API 国内版
 
-# ticktick-py
+项目 Fork 自 ticktick-py，适配国内版本的滴答清单。
+
+[滴答清单](https://dida365.com/) 和国际版 [TickTick](https://www.ticktick.com/) API 区别如下：
+
+- 使用手机号/用户名登陆
+- 没有开放平台
+
 ## Unofficial TickTick API Client for Python 3
 
 ## [Full Documentation](https://lazeroffmichael.github.io/ticktick-py/)

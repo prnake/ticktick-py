@@ -74,7 +74,7 @@ class TestCreate:
         """
         Tests url endpoint for task creation is returned properly
         """
-        expected_create_url = 'https://api.ticktick.com/open/v1/task'
+        expected_create_url = 'https://api.dida365.com/api/v2/task'
         actual_url = task_client._generate_create_url()
         assert expected_create_url == actual_url
 
@@ -107,7 +107,7 @@ class TestUpdate:
         Tests url endpoint for updating a task is returned properly
         """
         task = example_task_response()
-        expected_update_url = f"https://api.ticktick.com/open/v1/task/{task['id']}"
+        expected_update_url = f"https://api.dida365.com/api/v2/task/{task['id']}"
         actual_url = task_client._generate_update_url(task['id'])
         assert expected_update_url == actual_url
 
@@ -143,7 +143,7 @@ class TestComplete:
         """
         task = example_task_response()
 
-        expected_complete_url = f"https://api.ticktick.com/open/v1/project/{task['projectId']}/task/{task['id']}"
+        expected_complete_url = f"https://api.dida365.com/api/v2/project/{task['projectId']}/task/{task['id']}"
         expected_complete_url += "/complete"
 
         actual_url = task_client._generate_mark_complete_url(task['projectId'], task['id'])
@@ -187,7 +187,7 @@ class TestDelete:
         """
         Tests delete url is generated correctly
         """
-        expected = "https://api.ticktick.com/api/v2/batch/task"
+        expected = "https://api.dida365.com/api/v2/batch/task"
         assert expected == task_client._generate_delete_url()
 
     @patch('ticktick.api.TickTickClient.sync')

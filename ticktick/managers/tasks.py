@@ -11,7 +11,7 @@ class TaskManager:
     Handles all interactions for tasks.
     """
 
-    TASK_CREATE_ENDPOINT = "/open/v1/task"
+    TASK_CREATE_ENDPOINT = "/api/v2/task"
 
     def __init__(self, client_class):
         # ._client is a reference to the original client_class
@@ -21,8 +21,10 @@ class TaskManager:
         self.oauth_access_token = ''
 
         # set access token to valid oauth access token if available
-        if self._client.oauth_manager.access_token_info is not None:
-            self.oauth_access_token = self._client.oauth_manager.access_token_info['access_token']
+        # if self._client.oauth_manager.access_token_info is not None:
+        #     self.oauth_access_token = self._client.oauth_manager.access_token_info['access_token']
+
+        self.oauth_access_token = self._client.access_token
 
         # oauth headers have some extra fields
         self.oauth_headers = {'Content-Type': 'application/json',
@@ -36,7 +38,7 @@ class TaskManager:
         Returns the endpoint url for task creation
         """
 
-        CREATE_ENDPOINT = "/open/v1/task"
+        CREATE_ENDPOINT = "/api/v2/task"
         return self._client.OPEN_API_BASE_URL + CREATE_ENDPOINT
 
     def create(self, task):
@@ -175,7 +177,7 @@ class TaskManager:
         Generates the url for updating a task based off the taskID
         """
 
-        UPDATE_ENDPOINT = f"/open/v1/task/{taskID}"
+        UPDATE_ENDPOINT = f"/api/v2/task/{taskID}"
         return self._client.OPEN_API_BASE_URL + UPDATE_ENDPOINT
 
     def update(self, task):
@@ -257,7 +259,7 @@ class TaskManager:
         Generates the url for marking a task as complete based off the projectID and taskID
         """
 
-        COMPLETE_ENDPOINT = f"/open/v1/project/{projectID}/task/{taskID}/complete"
+        COMPLETE_ENDPOINT = f"/api/v2/project/{projectID}/task/{taskID}/complete"
         return self._client.OPEN_API_BASE_URL + COMPLETE_ENDPOINT
 
     def complete(self, task: dict):
